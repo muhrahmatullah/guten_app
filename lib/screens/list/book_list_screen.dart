@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guten_app/screens/list/book_list_vm.dart';
+import 'package:guten_app/screens/widget/book_widget.dart';
 import 'package:provider/provider.dart';
 
 class GutenBookListScreen extends StatelessWidget {
@@ -47,14 +48,14 @@ class _GutenBookListViewState extends State<GutenBookListView> {
     if (vm.isError) {
       return const Center(child: Text('Something went wrong'));
     }
-    return ListView.builder(
-      itemBuilder: (ctx, idx) {
-        return Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(vm.data?[idx].title ?? ''),
-        );
-      },
+    return GridView.builder(
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, mainAxisExtent: 230),
       itemCount: vm.data?.length ?? 0,
+      itemBuilder: (_, index) {
+        return BookWidget(onTap: (id) {}, bookData: vm.data?[index]);
+      },
     );
   }
 }
