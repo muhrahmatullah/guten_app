@@ -13,7 +13,7 @@ class GutenRemoteDataSource {
       final res = await clientService.fetchBookList(page);
       return res;
     } catch (e) {
-      return null;
+      rethrow;
     }
   }
 }

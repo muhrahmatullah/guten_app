@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:guten_app/model/book_data.dart';
 import 'package:guten_app/model/books.dart';
 
 class AppClientService {
