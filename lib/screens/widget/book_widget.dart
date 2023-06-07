@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:guten_app/model/book_data.dart';
 import 'package:guten_app/util/util.dart';
 
 class BookWidget extends StatelessWidget {
-  const BookWidget({Key? key, required this.onTap, required this.bookData})
-      : super(key: key);
+  const BookWidget({Key? key, required this.onTap, required this.bookData}) : super(key: key);
 
   final Function(String) onTap;
   final BookData? bookData;
@@ -17,19 +17,17 @@ class BookWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
-            child: Container(
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(child: _buildBackground()),
-                  ),
-                  Align(
-                    child: _buildBookUI(),
-                    alignment: Alignment.center,
-                  )
-                ],
-              ),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(child: _buildBackground()),
+                ),
+                Align(
+                  child: _buildBookUI(),
+                  alignment: Alignment.center,
+                )
+              ],
             ),
           ),
           const SizedBox(height: 6),
@@ -37,19 +35,13 @@ class BookWidget extends StatelessWidget {
             bookData?.title ?? '',
             maxLines: 2,
             textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge
-                ?.copyWith(color: Colors.black),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black),
           ),
           Text(
-            bookData?.authors?.first.name ?? '',
+            bookData?.authors?.isNotEmpty == true ? bookData?.authors?.first.name ?? '' : 'Unknown',
             maxLines: 2,
             textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(color: Colors.grey),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
           )
         ],
       ),
@@ -60,17 +52,15 @@ class BookWidget extends StatelessWidget {
     return Container(
       height: 140,
       width: 100,
-      decoration: const BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.black54, blurRadius: 18.0, offset: Offset(0.0, 0.75))
-      ]),
+      decoration: const BoxDecoration(boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 18.0, offset: Offset(0.0, 0.75))]),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: Image.network(
-          bookData?.formats?.image ??
-              'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/art-book-cover-design-template-34323b0f0734dccded21e0e3bebf004c_screen.jpg',
-          fit: BoxFit.cover,
-        ),
+        child: bookData?.formats?.image?.isNotEmpty == true
+            ? CachedNetworkImage(
+                imageUrl: bookData?.formats?.image ?? '',
+                fit: BoxFit.cover,
+              )
+            : const Center(child: Text('No Image data')),
       ),
     );
   }
@@ -79,12 +69,7 @@ class BookWidget extends StatelessWidget {
     return Container(
       height: 120,
       decoration: BoxDecoration(
-          boxShadow: const [
-            BoxShadow(
-                color: Colors.black54,
-                blurRadius: 8.0,
-                offset: Offset(0.0, 0.0))
-          ],
+          boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8.0, offset: Offset(0.0, 0.0))],
           color: GutenUiMixin.getRandomColor(),
           borderRadius: BorderRadius.circular(8.0)),
     );
