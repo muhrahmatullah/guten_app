@@ -1,9 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 mixin GutenUiMixin {
-  static Color getRandomColor() {
+  static Color getRandomColor(int idx) {
     List<Color> colors = [
       Colors.blueAccent,
       Colors.blue,
@@ -12,7 +10,6 @@ mixin GutenUiMixin {
       Colors.pinkAccent,
       Colors.orange,
     ];
-    final randomize = Random();
-    return colors[randomize.nextInt(5)];
+    return colors[idx % colors.length];
   }
 }

@@ -12,14 +12,23 @@ class BookListViewModel extends ChangeNotifier {
   bool isError = false;
   bool isLoadMore = false;
   bool hasNext = false;
+  bool isSearch = false;
   int page = 1;
+  String? title = '';
+  String? author = '';
 
-  Future<void> fetchBookList(int page) async {
-    if (isError) {
+  Future<void> fetchBookList(
+    int page, {
+    String? title,
+    String? author,
+  }) async {
+    if (isError || isSearch) {
       isLoading = true;
       notifyListeners();
     }
-    final resp = await repository.fetchBookList(page);
+    final resp = await repository.fetchBookList(page, author: author, title: title);
+    this.author = author;
+    this.title = title;
     if (!resp.error) {
       data = resp.data?.results;
       this.page = page + 1;
@@ -33,7 +42,7 @@ class BookListViewModel extends ChangeNotifier {
   Future<void> loadMore() async {
     isLoadMore = true;
     notifyListeners();
-    final resp = await repository.fetchBookList(page);
+    final resp = await repository.fetchBookList(page, author: author, title: title);
     if (!resp.error) {
       final List<BookData>? additionalData = data;
       additionalData?.addAll(resp.data?.results ?? []);

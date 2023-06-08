@@ -4,10 +4,11 @@ import 'package:guten_app/model/book_data.dart';
 import 'package:guten_app/util/util.dart';
 
 class BookWidget extends StatelessWidget {
-  const BookWidget({Key? key, required this.onTap, required this.bookData}) : super(key: key);
+  const BookWidget({Key? key, required this.onTap, required this.bookData, required this.idx}) : super(key: key);
 
   final Function(String) onTap;
   final BookData? bookData;
+  final int idx;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class BookWidget extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: Container(child: _buildBackground()),
+                  child: Container(child: _buildBackground(idx)),
                 ),
                 Align(
                   child: _buildBookUI(),
@@ -65,12 +66,12 @@ class BookWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildBackground() {
+  Widget _buildBackground(int idx) {
     return Container(
       height: 120,
       decoration: BoxDecoration(
           boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8.0, offset: Offset(0.0, 0.0))],
-          color: GutenUiMixin.getRandomColor(),
+          color: GutenUiMixin.getRandomColor(idx),
           borderRadius: BorderRadius.circular(8.0)),
     );
   }

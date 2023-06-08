@@ -8,10 +8,9 @@ class GutenRepository {
 
   GutenRepository(this.dataSource);
 
-  Future<ResponseWrapper<Books>> fetchBookList(int page) async {
+  Future<ResponseWrapper<Books>> fetchBookList(int page, {String? author, String? title}) async {
     try {
-      final res = await dataSource.fetchBookList(page);
-      print('mamank $res');
+      final res = await dataSource.fetchBookList(page, author: author, title: title);
       return ResponseWrapper.success(data: res);
     } catch (e) {
       return ResponseWrapper.error(error: true);
