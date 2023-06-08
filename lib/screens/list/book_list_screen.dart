@@ -49,7 +49,7 @@ class _GutenBookListViewState extends State<GutenBookListView> {
     super.initState();
     Future.microtask(() async {
       if (widget.author?.isNotEmpty == true) widget.vm.isSearch = true;
-      await widget.vm.fetchBookList(1, author: widget.author);
+      widget.vm.fetchBookList(1, author: widget.author);
     });
   }
 

@@ -236,12 +236,15 @@ class _GutenBookDetailViewState extends State<GutenBookDetailView> with SingleTi
           ],
         ),
       ),
-      body: TabBarView(
-        children: [
-          GutenChipView(texts: bookData?.subjects ?? []),
-          GutenChipView(texts: bookData?.bookshelves ?? []),
-        ],
-        controller: _tabController,
+      body: Container(
+        color: Colors.white,
+        child: TabBarView(
+          children: [
+            GutenChipView(texts: bookData?.subjects ?? []),
+            GutenChipView(texts: bookData?.bookshelves ?? []),
+          ],
+          controller: _tabController,
+        ),
       ),
     );
   }
