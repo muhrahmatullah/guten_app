@@ -2,15 +2,39 @@
 
 Flutter project to show project gutenberg
 
-## Getting Started
+## Intro
 
-This project is a starting point for a Flutter application.
+This project is part of challenge from xyz_goat, 
+In this challenge, I picked option B which is designing a long term project
+for 5 team members, I picked this because it can emulate the real working situation.
 
-A few resources to get you started if this is your first Flutter project:
+## Run this project
+### requirement
+- Flutter version 3.10.2
+- sdk: ">=2.18.0 <3.0.0"
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### running
+before running the project, we need to generate model class using build_runner, 
+can simply execute this command:
+```
+flutter packages pub run build_runner build --delete-conflicting-outputs  
+```
+for running debug build:
+```
+flutter run -t lib/main_dev.dart
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+for build prd android:
+```
+flutter build appbundle
+```
+
+for build prd iOS:
+```
+flutter build ipa
+```
+
+### project demo
+| demo |
+| - |
+| https://drive.google.com/file/d/1bBC4mhJt3agz7UEhhagXFSQED3QCb_U4/view?usp=sharing |
