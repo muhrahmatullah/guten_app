@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:guten_app/model/book_data.dart';
 import 'package:guten_app/model/books.dart';
 
 class AppClientService {
@@ -22,6 +23,17 @@ class AppClientService {
       response = await dio.get('$baseUrl/books?page=$page', queryParameters: query);
       final res = Books.fromJson(response.data);
 
+      return res;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<BookData> fetchBookDetail(String id) async {
+    Response response;
+    try {
+      response = await dio.get('$baseUrl/books/$id');
+      final res = BookData.fromJson(response.data);
       return res;
     } catch (e) {
       rethrow;

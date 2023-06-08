@@ -12,39 +12,44 @@ class BookWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 18),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(child: _buildBackground(idx)),
-                ),
-                Align(
-                  child: _buildBookUI(),
-                  alignment: Alignment.center,
-                )
-              ],
+    return GestureDetector(
+      onTap: () {
+        onTap(bookData?.id.toString() ?? '');
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 18),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(child: _buildBackground(idx)),
+                  ),
+                  Align(
+                    child: _buildBookUI(),
+                    alignment: Alignment.center,
+                  )
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            bookData?.title ?? '',
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black),
-          ),
-          Text(
-            bookData?.authors?.isNotEmpty == true ? bookData?.authors?.first.name ?? '' : 'Unknown',
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
-          )
-        ],
+            const SizedBox(height: 6),
+            Text(
+              bookData?.title ?? '',
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black),
+            ),
+            Text(
+              bookData?.authors?.isNotEmpty == true ? bookData?.authors?.first.name ?? '' : 'Unknown',
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+            )
+          ],
+        ),
       ),
     );
   }

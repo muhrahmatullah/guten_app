@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guten_app/screens/detail/book_detail_screen.dart';
 import 'package:guten_app/screens/list/book_list_vm.dart';
 import 'package:guten_app/screens/widget/book_widget.dart';
 import 'package:guten_app/screens/widget/search_sheet.dart';
@@ -11,14 +12,19 @@ class GutenBookListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookListVM = Provider.of<BookListViewModel>(context);
-    return GutenBookListView(vm: bookListVM);
+    String authorName = (ModalRoute.of(context)?.settings.arguments as String?) ?? '';
+    return GutenBookListView(
+      vm: bookListVM,
+      author: authorName,
+    );
   }
 }
 
 class GutenBookListView extends StatefulWidget {
-  const GutenBookListView({Key? key, required this.vm}) : super(key: key);
+  const GutenBookListView({Key? key, required this.vm, this.author}) : super(key: key);
 
   final BookListViewModel vm;
+  final String? author;
 
   @override
   State<GutenBookListView> createState() => _GutenBookListViewState();
@@ -42,7 +48,8 @@ class _GutenBookListViewState extends State<GutenBookListView> {
   void initState() {
     super.initState();
     Future.microtask(() async {
-      await widget.vm.fetchBookList(1);
+      if (widget.author?.isNotEmpty == true) widget.vm.isSearch = true;
+      await widget.vm.fetchBookList(1, author: widget.author);
     });
   }
 
@@ -135,7 +142,9 @@ class _GutenBookListViewState extends State<GutenBookListView> {
             itemCount: vm.data?.length ?? 0,
             itemBuilder: (_, index) {
               return BookWidget(
-                onTap: (id) {},
+                onTap: (id) {
+                  Navigator.pushNamed(context, GutenBookDetailScreen.route, arguments: id);
+                },
                 bookData: vm.data?[index],
                 idx: index,
               );
