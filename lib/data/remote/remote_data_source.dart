@@ -8,9 +8,9 @@ class GutenRemoteDataSource {
 
   final AppClientService clientService;
 
-  Future<Books?> fetchBookList(int page) async {
+  Future<Books?> fetchBookList(int page, {String? author, String? title}) async {
     try {
-      final res = await clientService.fetchBookList(page);
+      final res = await clientService.fetchBookList(page, author: author, title: title);
       return res;
     } catch (e) {
       rethrow;
