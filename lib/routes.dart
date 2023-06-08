@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:guten_app/data/guten_repo.dart';
+import 'package:guten_app/screens/detail/book_detail_screen.dart';
+import 'package:guten_app/screens/detail/book_detail_vm.dart';
 import 'package:guten_app/screens/list/book_list_screen.dart';
 import 'package:guten_app/screens/list/book_list_vm.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,15 @@ class GutenRoutes {
             },
             child: const GutenBookListScreen(),
           ),
+      GutenBookDetailScreen.route: (context) => ChangeNotifierProvider(
+        create: (ctx) {
+          AppConfig appConfig = Provider.of<AppConfig>(ctx, listen: false);
+          GutenRepository repo = GutenRepository(GutenRemoteDataSource(
+              AppClientService(Dio(), appConfig.baseUrlConfig.domainUrl)));
+          return BookDetailViewModel(repo);
+        },
+        child: const GutenBookDetailScreen(),
+      ),
     };
   }
 }

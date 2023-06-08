@@ -19,21 +19,10 @@ class BookData {
   @JsonKey(name: 'download_count')
   final int? downloadCount;
 
-  factory BookData.fromJson(Map<String, dynamic> json) =>
-      _$BookDataFromJson(json);
+  factory BookData.fromJson(Map<String, dynamic> json) => _$BookDataFromJson(json);
 
-  BookData(
-      this.id,
-      this.title,
-      this.subjects,
-      this.bookshelves,
-      this.languages,
-      this.copyright,
-      this.mediaType,
-      this.downloadCount,
-      this.authors,
-      this.formats,
-      this.translators);
+  BookData(this.id, this.title, this.subjects, this.bookshelves, this.languages, this.copyright, this.mediaType, this.downloadCount,
+      this.authors, this.formats, this.translators);
 
   Map<String, dynamic> toJson() => _$BookDataToJson(this);
 }
@@ -43,7 +32,13 @@ class Format {
   @JsonKey(name: 'image/jpeg')
   final String? image;
 
-  Format(this.image);
+  @JsonKey(name: 'text/html')
+  final String? textHtml;
+
+  @JsonKey(name: 'text/plain')
+  final String? textPlain;
+
+  Format(this.image, this.textHtml, this.textPlain);
   factory Format.fromJson(Map<String, dynamic> json) => _$FormatFromJson(json);
   Map<String, dynamic> toJson() => _$FormatToJson(this);
 }

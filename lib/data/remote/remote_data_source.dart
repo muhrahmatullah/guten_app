@@ -16,4 +16,14 @@ class GutenRemoteDataSource {
       rethrow;
     }
   }
+
+  Future<BookData?> fetchBookDetail(String id) async {
+    try {
+      final res = await clientService.fetchBookDetail(id);
+      return res;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
 }

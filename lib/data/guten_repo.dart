@@ -16,4 +16,13 @@ class GutenRepository {
       return ResponseWrapper.error(error: true);
     }
   }
+
+  Future<ResponseWrapper<BookData>> fetchBookDetail(String id) async {
+    try {
+      final res = await dataSource.fetchBookDetail(id);
+      return ResponseWrapper.success(data: res);
+    } catch (e) {
+      return ResponseWrapper.error(error: true);
+    }
+  }
 }
